@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
 
     load_folder_list();
@@ -106,7 +105,7 @@ $(document).ready(function(){
         $.ajax({
             url:"./action.php",
             method:"POST",
-            data:{action:action, folder_name:folder_name},
+            data:{action:action, folder_name: folder_name},
             success:function(data)
             {
                 $('#file_list').html(data);
@@ -132,22 +131,6 @@ $(document).ready(function(){
                 }
             });
         }
-    });
-
-    $(document).on('blur', '.change_file_name', function(){
-        var folder_name = $(this).data("folder_name");
-        var old_file_name = $(this).data("file_name");
-        var new_file_name = $(this).text();
-        var action = "change_file_name";
-        $.ajax({
-            url:"./action.php",
-            method:"POST",
-            data:{folder_name:folder_name, old_file_name:old_file_name, new_file_name:new_file_name, action:action},
-            success:function(data)
-            {
-                alert(data);
-            }
-        });
     });
 
 });

@@ -8,6 +8,8 @@ if (isset($_FILES["upload_file"]["name"]) && $_FILES["upload_file"]["name"][0] !
         $path = $folder_name . '/' . basename($name);
         if (!move_uploaded_file($files["tmp_name"][$key], $path)) {
             $result = false;
+        } else {
+            chmod($path, 0777);
         }
     }
 

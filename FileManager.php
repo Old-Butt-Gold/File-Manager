@@ -90,7 +90,7 @@ class FileManager
             if ($file === '.' or $file === '..') {
                 continue;
             } else {
-                unlink($_POST["folder_name"] . '/' . $file);
+                unlink($_POST["folder_name"] . DIRECTORY_SEPARATOR . $file);
             }
         }
         if (rmdir($_POST["folder_name"])) {
@@ -103,17 +103,6 @@ class FileManager
         if (file_exists($_POST["path"])) {
             unlink($_POST["path"]);
             echo 'File Deleted';
-        }
-    }
-
-    public function change_file_name() : void
-    {
-        $oldName = $_POST["folder_name"] . '/' . $_POST["old_file_name"];
-        $newName = $_POST["folder_name"] . '/' . $_POST["new_file_name"];
-        if (rename($oldName, $newName)) {
-            echo 'File name change successfully';
-        } else {
-            echo 'There is an error';
         }
     }
 
@@ -133,12 +122,14 @@ class FileManager
             if ($file === '.' or $file === '..') {
                 continue;
             } else {
-                $path = $_POST["folder_name"] . '/' . $file;
+                $path = $_POST["folder_name"] . DIRECTORY_SEPARATOR . $file;
                 $output .= '
             <tr>
-             <td><img src="' . $path . '" class="img-thumbnail" height="50" width="50" /></td>
-             <td contenteditable="true" data-folder_name="' . $_POST["folder_name"] . '"  data-file_name = "' . $file . '" class="change_file_name">' . $file . '</td>
-             <td><button name="remove_file" class="remove_file btn btn-danger btn-xs" id="' . $path . '">Remove</button></td>
+                 <td><img src="' . $path . '" class="img-thumbnail" height="100" width="100" /></td>
+                 <td>
+                 <a href="' . $path . '" download>' . $file . '</a>
+                 </td>
+                 <td><button name="remove_file" class="remove_file btn btn-danger btn-xs" id="' . $path . '">Remove</button></td>
             </tr>
             ';
             }
